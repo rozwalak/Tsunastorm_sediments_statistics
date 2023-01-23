@@ -1,10 +1,52 @@
 library(readxl)
+library(tidyverse)
+library(ggplot2)
+library(RColorBrewer)
+
 
 df <- read_excel("input/tsunastorm_grainsize.xlsx", sheet = "Logarithmic_fw57")
+colnames(df)[1] <- "Sample_name"
 colnames(df)[2] <- "Mean"
 colnames(df)[8] <- "Sorting"
 
 metadata <- read.csv("input/metadata.csv")
-colnames(metadata)[1] <- "Sample Name"
-merged <- right_join(metadata, df)
+colnames(metadata)[1] <- "Sample_name"
+
+
+df2PCA <- df %>%
+  select(Sample_name, Mean, Sorting, Skewness, Kurtosis) %>%
+  column_to_rownames(var="Sample_name")
+
+
+#Perform PCA
+pca <- prcomp(df2PCA, scale=TRUE)
+
+#calculate percent variation per PC
+pca.var <- pca$sdev^2
+pca.var.per <- round(pca.var/sum(pca.var)*100, 1)
+barplot(pca.var.per, main="Scree Plot", xlab="Principal Component", ylab="Percent Variation")
+
+#create a data frame
+pca.data <- data.frame(Sample_name=rownames(pca$x),
+                       X=pca$x[,1],
+                       Y=pca$x[,2])
+#merge with metadata
+merged <- right_join(metadata, pca.data)
+
+# make a plot
+ggplot(data=merged, aes(x=X, y=Y, shape=Type_general, color = Type_details)) +
+  geom_point(size=6) +
+  theme_classic(base_size = 18) +
+  guides(shape = guide_legend(title = "Type of sediments")) +
+  guides(color = guide_legend(title = "Sources")) + 
+  xlab(paste("PC1 - ", pca.var.per[1], "%", sep="")) +
+  ylab(paste("PC2 - ", pca.var.per[2], "%", sep="")) +
+  scale_colour_brewer(palette = 'Set2')
+
+#calculate PCs loadings
+PC1_loading_scores <- pca$rotation[,1]
+PC2_loading_scores <- pca$rotation[,2]
+
+PC1_loading_scores
+PC2_loading_scores
 
