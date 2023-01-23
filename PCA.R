@@ -2,6 +2,7 @@ library(readxl)
 library(tidyverse)
 library(ggplot2)
 library(RColorBrewer)
+library(ggsci)
 
 
 df <- read_excel("input/tsunastorm_grainsize.xlsx", sheet = "Logarithmic_fw57")
@@ -34,14 +35,15 @@ pca.data <- data.frame(Sample_name=rownames(pca$x),
 merged <- right_join(metadata, pca.data)
 
 # make a plot
-ggplot(data=merged, aes(x=X, y=Y, shape=Type_general, color = Type_details)) +
+PCA_plot <- ggplot(data=merged, aes(x=X, y=Y, shape=Type_general, color = Type_details)) +
   geom_point(size=6) +
   theme_classic(base_size = 18) +
   guides(shape = guide_legend(title = "Type of sediments")) +
   guides(color = guide_legend(title = "Sources")) + 
-  xlab(paste("PC1 - ", pca.var.per[1], "%", sep="")) +
-  ylab(paste("PC2 - ", pca.var.per[2], "%", sep="")) +
+  xlab(paste("PC 1 (", pca.var.per[1], "% )" )) +
+  ylab(paste("PC 2 (", pca.var.per[2], "% )" )) +
   scale_colour_brewer(palette = 'Set2')
+PCA_plot
 
 #calculate PCs loadings
 PC1_loading_scores <- pca$rotation[,1]
@@ -50,3 +52,5 @@ PC2_loading_scores <- pca$rotation[,2]
 PC1_loading_scores
 PC2_loading_scores
 
+#save plot file
+ggsave("PCA.png", plot = PCA_plot, bg = "white", width = 20, height = 10.4, device = "png", path = "output")

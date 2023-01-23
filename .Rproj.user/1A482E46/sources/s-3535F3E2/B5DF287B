@@ -1,27 +1,27 @@
 {
-    "id": "EF1B7932",
-    "path": "C:/Users/User/Documents/Tsunastorm_grainsize_statistics/mean_vs_skewness.R",
-    "project_path": "mean_vs_skewness.R",
+    "id": "B5DF287B",
+    "path": "C:/Users/User/Documents/Tsunastorm_grainsize_statistics/Cluster_analysis.R",
+    "project_path": "Cluster_analysis.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1674457733846.0,
+    "created": 1674476791207.0,
     "source_on_save": false,
-    "relative_order": 1,
+    "relative_order": 13,
     "properties": {
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "12,0",
-        "scrollLine": "0"
+        "cursorPosition": "63,0",
+        "scrollLine": "46"
     },
     "folds": "",
-    "lastKnownWriteTime": 1674467985,
+    "lastKnownWriteTime": 1674483099,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1674467985095,
+    "last_content_update": 1674483099940,
     "read_only": false,
     "read_only_alternatives": []
 }
