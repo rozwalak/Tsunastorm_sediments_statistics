@@ -1,0 +1,33 @@
+library(readxl)
+library(ggplot2)
+library(hrbrthemes)
+library(RColorBrewer)
+
+df <- read_excel("input/tsunastorm_grainsize.xlsx", sheet = "Logarithmic_fw57")
+colnames(df)[2] <- "Mean"
+colnames(df)[8] <- "Sorting"
+
+metadata <- read.csv("input/metadata.csv")
+colnames(metadata)[1] <- "Sample Name"
+merged <- right_join(metadata, df)
+
+
+################################################################################
+plot_mean_description <- ggplot(df, aes(x=Mean, y=Sorting, color=df$`Mean Description`)) +
+  geom_point(size=6) +
+  theme_ipsum() +
+  guides(color = guide_legend(title = "Mean description"))
+plot_mean_description
+
+################################################################################
+plot_mean_vs_sorting <- ggplot(merged, aes(x=Mean, y=Sorting, shape=`Type_general`, color=`Type_details`)) + 
+  geom_point(size=6) +
+  theme_minimal(base_size = 18) +
+  guides(shape = guide_legend(title = "Type of sediments")) +
+  guides(color = guide_legend(title = "Sources")) + 
+  scale_colour_brewer(palette = 'Set2') +
+  labs(x = "Mean size (phi)", y = "Sorting")
+plot_mean_vs_sorting
+
+ggsave("plot_mean_vs_sorting.png", plot = plot_mean_vs_skewness,bg = "white", width = 20, height = 10.4, device = "png", path = "output")
+
