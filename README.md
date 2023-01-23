@@ -1,1 +1,2 @@
-# Tsunastorm_grainsize_statistics
+# Tsunastorm sedimentological statistics
+# Storm or tsunami? that's a question!
