@@ -1,0 +1,28 @@
+{
+    "id": "A744102A",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1674471220608.0,
+    "source_on_save": false,
+    "relative_order": 10,
+    "properties": {
+        "id": "1ae51587e16f4adea180401b36743b6a",
+        "name": "pca_res",
+        "title": "pca_res",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 2372359072792,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1674471220608,
+    "read_only": false,
+    "read_only_alternatives": []
+}
